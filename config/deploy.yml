@@ -15,7 +15,7 @@ ssh:
 proxy:
   ssl: false
   host: grv.codes
-  app_port: 8128
+  app_port: 8129
   path_prefix: /civic-atlas
   strip_path_prefix: false
   healthcheck:
@@ -29,7 +29,7 @@ registry:
 env:
   clear:
     HOST: 0.0.0.0
-    PORT: 8128
+    PORT: 8129
     TZ: America/Toronto
     CIVIC_ATLAS_BASE_PATH: /civic-atlas
     CIVIC_ATLAS_PUBLIC_URL: https://grv.codes/civic-atlas/

@@ -2,7 +2,7 @@ import { existsSync, statSync } from "node:fs";
 import { extname, join, normalize, sep } from "node:path";
 
 const host = process.env.HOST ?? "127.0.0.1";
-const port = Number(process.env.PORT ?? "8128");
+const port = Number(process.env.PORT ?? "8129");
 const basePath = normalizeBasePath(process.env.CIVIC_ATLAS_BASE_PATH ?? "/civic-atlas");
 const distDir = normalize(process.env.CIVIC_ATLAS_DIST_DIR ?? join(import.meta.dir, "dist"));
 const distRoot = distDir.endsWith(sep) ? distDir : `${distDir}${sep}`;
