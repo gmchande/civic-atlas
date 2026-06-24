@@ -10,7 +10,8 @@
     "build:public": "VITE_BASE_PATH=/civic-atlas/ tsc -b && VITE_BASE_PATH=/civic-atlas/ vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "preview:public": "vite preview --base /civic-atlas/"
+    "preview:public": "vite preview --base /civic-atlas/",
+    "serve:public": "CIVIC_ATLAS_BASE_PATH=/civic-atlas bun run server.ts"
   },
   "dependencies": {
     "maplibre-gl": "^5.24.0",

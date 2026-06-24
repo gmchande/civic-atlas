@@ -1,0 +1,11 @@
+.git
+.kamal/secrets
+.DS_Store
+coverage
+dist
+node_modules
+playwright-report
+screenshots
+test-results
+*.log
+*.local

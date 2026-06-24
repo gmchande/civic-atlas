@@ -1,0 +1,43 @@
+service: civic_atlas
+
+primary_role: web
+
+image: gaurav42acorns/civic_atlas
+
+servers:
+  web:
+    - 159.203.15.246
+
+ssh:
+  user: root
+  config: true
+
+proxy:
+  ssl: false
+  host: grv.codes
+  app_port: 8128
+  path_prefix: /civic-atlas
+  strip_path_prefix: false
+  healthcheck:
+    path: /up
+
+registry:
+  username: gaurav42acorns
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    HOST: 0.0.0.0
+    PORT: 8128
+    TZ: America/Toronto
+    CIVIC_ATLAS_BASE_PATH: /civic-atlas
+    CIVIC_ATLAS_PUBLIC_URL: https://grv.codes/civic-atlas/
+
+builder:
+  arch: amd64
+  driver: docker
+
+aliases:
+  logs: app logs -f
+  shell: app exec --interactive --reuse "bash"

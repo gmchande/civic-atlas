@@ -46,6 +46,20 @@ Then preview the production output:
 bun run preview:public
 ```
 
+## Deployment
+
+The public deployment is a small Kamal app that builds the Vite bundle with Bun
+and serves `dist` under `/civic-atlas/`.
+
+```sh
+cp .kamal/secrets.example .kamal/secrets
+kamal setup
+kamal deploy
+```
+
+Use `kamal deploy` after the first setup. Keep `https://grv.codes/civic-atlas/`
+public at the Cloudflare Access layer.
+
 ## Notes
 
 - `public/data/geojson` is the runtime map dataset.
