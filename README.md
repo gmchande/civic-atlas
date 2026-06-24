@@ -60,6 +60,10 @@ kamal deploy
 Use `kamal deploy` after the first setup. Keep `https://grv.codes/civic-atlas/`
 public at the Cloudflare Access layer.
 
+GitHub Pages also publishes the static app at:
+
+https://gmchande.github.io/civic-atlas/
+
 ## Notes
 
 - `public/data/geojson` is the runtime map dataset.
