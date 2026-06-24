@@ -1,0 +1,164 @@
+:root {
+  /* Heritage Atlas — warm light theme */
+  --color-bg: #f7f4ef;
+  --color-bg-warm: #f0ebe3;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f5f2ed;
+  --color-surface-alt: #faf8f5;
+  --color-border: #e2ddd5;
+  --color-border-light: #ece8e1;
+
+  /* Text */
+  --color-text: #1f1d2b;
+  --color-text-secondary: #5a576a;
+  --color-text-muted: #908d9b;
+
+  /* Brand — Canadian heritage */
+  --color-primary: #1e3a6e;
+  --color-primary-hover: #162d56;
+  --color-primary-light: #e8edf5;
+  --color-accent: #c41e3a;
+  --color-accent-light: #fce8eb;
+  --color-success: #0f7b5f;
+  --color-danger: #c41e3a;
+
+  /* Event category colors */
+  --color-exploration: #2563eb;
+  --color-military: #dc2626;
+  --color-political: #b45309;
+  --color-cultural: #7c3aed;
+  --color-infrastructure: #0f766e;
+  --color-settlement: #c2410c;
+
+  /* Layout */
+  --sidebar-width: 220px;
+  --sidebar-collapsed: 56px;
+  --bottom-bar-height: 64px;
+
+  /* Typography */
+  --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
+  --font-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows — warm, soft */
+  --shadow-sm: 0 1px 3px rgba(30, 28, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(30, 28, 40, 0.08);
+  --shadow-lg: 0 8px 30px rgba(30, 28, 40, 0.12);
+  --shadow-xl: 0 16px 48px rgba(30, 28, 40, 0.16);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* MapLibre overrides */
+.maplibregl-popup-content {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(20px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.5) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 18px 20px !important;
+  box-shadow: var(--shadow-xl) !important;
+  max-width: 320px !important;
+  animation: popupFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.maplibregl-popup-tip {
+  border-top-color: rgba(255, 255, 255, 0.96) !important;
+}
+.maplibregl-popup-close-button {
+  color: var(--color-text-muted) !important;
+  font-size: 20px !important;
+  padding: 4px 8px !important;
+  transition: color 0.15s ease;
+}
+.maplibregl-popup-close-button:hover {
+  color: var(--color-text) !important;
+}
+
+/* MapLibre nav controls */
+.maplibregl-ctrl-group {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.maplibregl-ctrl-group button {
+  border-bottom: 1px solid var(--color-border-light) !important;
+}
+.maplibregl-ctrl-group button:last-child {
+  border-bottom: none !important;
+}
+.maplibregl-ctrl button .maplibregl-ctrl-icon {
+  filter: brightness(0.3) !important;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
