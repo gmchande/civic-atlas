@@ -19,7 +19,7 @@ export default function AppLayout() {
           <MapleLogo />
           <div className="logo-text">
             <span className="logo-title">Civic Atlas</span>
-            <span className="logo-subtitle">Visual Canada Companion</span>
+            <span className="logo-subtitle">Discover Canada Companion</span>
           </div>
         </div>
       </header>
