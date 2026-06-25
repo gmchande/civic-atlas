@@ -23,7 +23,7 @@ const PROVINCE_LEGEND: { color: string; label: string }[] = [
   { color: '#7c3aed', label: 'Yukon' },
   { color: '#0d9488', label: 'Alberta' },
   { color: '#ca8a04', label: 'Saskatchewan' },
-  { color: '#2563eb', label: 'Newfoundland' },
+  { color: '#2563eb', label: 'Newfoundland and Labrador' },
   { color: '#4338ca', label: 'Nunavut' },
   { color: '#64748b', label: 'NWT' },
 ];
@@ -571,7 +571,8 @@ function normalizeProvinceLabel(name: string): string {
   if (name === 'Northwest Territories') return 'NWT';
   if (name === 'Yukon Territory') return 'Yukon';
   if (name === 'PEI') return 'Prince Edward Island';
-  if (name === 'Newfoundland and Labrador') return 'Newfoundland';
+  if (name === 'Newfoundland') return 'Newfoundland and Labrador';
+  if (name === 'Newfoundland and Labrador') return 'Newfoundland and Labrador';
   return name;
 }
 

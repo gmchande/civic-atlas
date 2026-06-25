@@ -19,12 +19,12 @@ export const eraGuides: Record<number, EraGuide> = {
     whyItMatters:
       'This is the starting shape for many later names in the guide: New France, Acadia, Quebec, and the St. Lawrence corridor.',
     terms: [
-      { term: 'New France', meaning: 'France\'s North American colony centered on the St. Lawrence and interior trade routes.' },
+      { term: 'New France', meaning: 'France\'s North American colony centred on the St. Lawrence and interior trade routes.' },
       { term: 'Acadia', meaning: 'French settlement region in the Atlantic area, especially present-day Nova Scotia and nearby lands.' },
     ],
     remember: [
       'Samuel de Champlain founded Quebec City in 1608.',
-      'The St. Lawrence River is the spine of early French Canada.',
+      'The St. Lawrence River is the main route through early French Canada.',
     ],
   },
   1670: {
@@ -36,14 +36,14 @@ export const eraGuides: Record<number, EraGuide> = {
       'Fur trade routes connect European traders with First Nations knowledge and alliances.',
     ],
     whyItMatters:
-      'Later western and northern Canada grows out of this enormous HBC trading geography, not only from the original eastern colonies.',
+      'Later western and northern Canada grows partly out of this enormous HBC trading territory, not only from the original eastern colonies.',
     terms: [
       { term: 'Rupert\'s Land', meaning: 'The HBC trading territory draining into Hudson Bay.' },
       { term: 'Voyageurs', meaning: 'Canoe-travelling fur traders who moved goods and knowledge through the interior.' },
     ],
     remember: [
       'The Hudson\'s Bay Company charter dates to 1670.',
-      'The fur trade is a major bridge between geography, economy, and Indigenous alliances.',
+      'The fur trade connects territory, economy, and Indigenous alliances.',
     ],
   },
   1713: {
@@ -171,7 +171,7 @@ export const eraGuides: Record<number, EraGuide> = {
     whyItMatters:
       'The small shape of early Manitoba beside the huge Northwest Territories makes western expansion much easier to remember.',
     terms: [
-      { term: 'Metis', meaning: 'A people with mixed Indigenous and European ancestry and distinct culture and political history.' },
+      { term: 'Métis', meaning: 'A people with mixed Indigenous and European ancestry and distinct culture and political history.' },
       { term: 'Red River Resistance', meaning: 'The conflict and negotiation connected with Manitoba joining Canada.' },
     ],
     remember: [
@@ -188,7 +188,7 @@ export const eraGuides: Record<number, EraGuide> = {
       'Canada now spans from the Atlantic colonies toward the Pacific.',
     ],
     whyItMatters:
-      'The railway promise is the key test connection: geography, economy, and political union all meet here.',
+      'The railway promise is the key test connection: distance, trade, and political union all meet here.',
     terms: [
       { term: 'Pacific province', meaning: 'British Columbia, Canada\'s province on the Pacific Ocean.' },
       { term: 'Transcontinental railway', meaning: 'The railway link promised to connect British Columbia with eastern Canada.' },
@@ -259,7 +259,7 @@ export const eraGuides: Record<number, EraGuide> = {
     year: 1949,
     question: 'Why does Newfoundland join so late?',
     whatChanged: [
-      'Newfoundland and Labrador becomes Canada\'s newest province.',
+      'Newfoundland and Labrador joins Canada as its newest province.',
       'Canada now includes the Atlantic island colony that had remained outside Confederation.',
       'The country reaches the familiar ten-province shape.',
     ],

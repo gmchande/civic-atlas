@@ -404,14 +404,14 @@ export const events: HistoricalEvent[] = [
     year: 1869,
     title: 'Red River Rebellion',
     description:
-      'Louis Riel led an armed uprising and seized Fort Garry (the territorial capital) after the Metis of the Red River were not consulted on the transfer of land from the Hudson\'s Bay Company.',
+      'Louis Riel led an armed uprising and seized Fort Garry (the territorial capital) after the Métis of the Red River were not consulted on the transfer of land from the Hudson\'s Bay Company.',
     lat: 49.88,
     lng: -97.13,
     category: 'military',
     keyPeople: ['Louis Riel'],
     testFacts: [
       'Louis Riel led the Red River Rebellion in 1869.',
-      'The Metis were not consulted about the transfer of their lands.',
+      'The Métis were not consulted about the transfer of their lands.',
       'Riel seized Fort Garry, the territorial capital.',
     ],
   },
@@ -478,7 +478,7 @@ export const events: HistoricalEvent[] = [
     year: 1885,
     title: 'North-West Rebellion',
     description:
-      'A second Metis rebellion in present-day Saskatchewan led to Louis Riel\'s trial and execution for high treason, a decision strongly opposed in Quebec. Gabriel Dumont led the Metis military forces.',
+      'A second Métis rebellion in present-day Saskatchewan led to Louis Riel\'s trial and execution for high treason, a decision strongly opposed in Quebec. Gabriel Dumont led the Métis military forces.',
     lat: 52.77,
     lng: -108.28,
     category: 'military',
@@ -486,7 +486,7 @@ export const events: HistoricalEvent[] = [
     testFacts: [
       'Riel was tried and executed for high treason in 1885.',
       'His execution was strongly opposed in Quebec.',
-      'Riel is seen by many as a hero and defender of Metis rights.',
+      'Riel is seen by many as a hero and defender of Métis rights.',
     ],
   },
   {
@@ -800,14 +800,14 @@ export const events: HistoricalEvent[] = [
   {
     id: 'aboriginal-vote-1960',
     year: 1960,
-    title: 'Aboriginal People Granted the Vote',
+    title: 'Indigenous People Granted the Vote',
     description:
-      'Aboriginal people were granted the right to vote in federal elections, extending the franchise to all adult Canadians.',
+      'Indigenous people were granted the right to vote in federal elections, extending the franchise to all adult Canadians.',
     lat: 45.42,
     lng: -75.7,
     category: 'political',
     testFacts: [
-      'Aboriginal people gained the federal vote in 1960.',
+      'Indigenous people gained the federal vote in 1960.',
     ],
   },
   {
