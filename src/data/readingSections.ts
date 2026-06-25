@@ -18,18 +18,18 @@ export const readingSections: ReadingSection[] = [
     guideSummary:
       'French settlement begins in Acadia and then takes root at Quebec City on the St. Lawrence.',
     plainExplanation:
-      'This is the beginning of the French map story. Acadia is the Atlantic thread, while Quebec City becomes the St. Lawrence anchor for New France. Later names like Quebec, Canada, Acadia, and French Canada make more sense once these two early centers are separate in your head.',
+      'French Canada starts in two places worth keeping separate: Acadia on the Atlantic, and Quebec City on the St. Lawrence. Later names like Quebec, Canada, Acadia, and French Canada make more sense once those early centres are separate in your head.',
     mapFocus:
       'Look east for Port-Royal in present-day Nova Scotia, then follow the St. Lawrence to Quebec City.',
     testMemory: [
       'Port-Royal begins the Acadian presence in 1604.',
       'Samuel de Champlain builds Quebec City in 1608.',
-      'The St. Lawrence River is the spine of early French Canada.',
+      'New France grew along the St. Lawrence River.',
     ],
     terms: [
       {
         term: 'New France',
-        meaning: "France's North American colony centered on the St. Lawrence and interior trade routes.",
+        meaning: "France's North American colony centred on the St. Lawrence and interior trade routes.",
       },
       {
         term: 'Acadia',
@@ -37,11 +37,11 @@ export const readingSections: ReadingSection[] = [
       },
     ],
     confusionBuster:
-      'New France is not modern Canada. It is a French colonial geography that later gets reorganized under British rule.',
+      'New France is not modern Canada. It is a French colony that later gets reorganized under British rule.',
   },
   {
     id: 'hudsons-bay-and-colonial-competition',
-    title: "Hudson's Bay and Colonial Competition",
+    title: "Hudson's Bay and the Fur-Trade Rivals",
     chapter: 'canadas-history',
     sourceTitle: "Canada's History",
     sourceUrl: HISTORY_URL,
@@ -53,13 +53,13 @@ export const readingSections: ReadingSection[] = [
     guideSummary:
       "The Hudson's Bay Company receives trading rights over the Hudson Bay watershed while French and British interests compete across North America.",
     plainExplanation:
-      'Canada does not grow only from the St. Lawrence. A huge northern and western fur-trade geography also matters. The Hudson Bay watershed helps explain why western and northern Canada later enter the story through company lands, trading posts, and Indigenous alliances.',
+      'Canada does not grow only from the St. Lawrence. A huge northern and western fur-trade network also matters. The Hudson Bay watershed helps explain why western and northern Canada later enter the story through company lands, trading posts, and Indigenous alliances.',
     mapFocus:
       "Notice how Rupert's Land sits north and west of New France, creating another major path into the future map of Canada.",
     testMemory: [
       "The Hudson's Bay Company charter dates to 1670.",
       'Voyageurs and coureurs des bois connected trade routes through the interior.',
-      'Fur trade geography helps explain later western expansion.',
+      'The fur trade pushed Canada west and north.',
     ],
     terms: [
       {
@@ -86,7 +86,7 @@ export const readingSections: ReadingSection[] = [
     guideSummary:
       'After Britain defeats France, former French Canada is reorganized as the Province of Quebec.',
     plainExplanation:
-      'This is where the label Quebec changes from a French center into a British colony name. French-speaking Catholic Canadiens remain in place, but the empire ruling the map has changed. That is why the guide moves from New France into British North America here.',
+      "Here the name 'Quebec' flips from a French settlement to a British colony. French-speaking Catholic Canadiens remain in place, but the empire ruling the map has changed. That is why the guide moves from New France into British North America here.",
     mapFocus:
       'Look at the St. Lawrence colony and compare it with the much larger French and British claims around it.',
     testMemory: [
@@ -155,7 +155,7 @@ export const readingSections: ReadingSection[] = [
     guideSummary:
       'After the American Revolution, Loyalists move north and the Constitutional Act divides Quebec into Upper Canada and Lower Canada.',
     plainExplanation:
-      'This section explains why two Canadas appear before modern Canada exists. Loyalist settlement strengthens English-speaking institutions in the west, while the French-speaking St. Lawrence colony remains centered in the east.',
+      'This section explains why two Canadas appear before modern Canada exists. Loyalist settlement strengthens English-speaking institutions in the west, while the French-speaking St. Lawrence colony remains centred in the east.',
     mapFocus:
       'Upper Canada is west and upriver; Lower Canada is east and downriver along the St. Lawrence.',
     testMemory: [
@@ -316,7 +316,7 @@ export const readingSections: ReadingSection[] = [
       'Look at the gap between the eastern provinces and British Columbia. The promised railway is what is supposed to bind that distance.',
     testMemory: [
       'British Columbia joins Confederation in 1871.',
-      'The promise of a transcontinental railway is the key test connection.',
+      'British Columbia joined because Ottawa promised a railway to the coast.',
       'The CPR last spike is driven in 1885.',
     ],
     terms: [

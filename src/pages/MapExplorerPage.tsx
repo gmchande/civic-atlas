@@ -406,7 +406,7 @@ export default function MapExplorerPage() {
               </div>
 
               <div className="reader-source-strip">
-                <span>Unofficial companion. Use the official guide as the source of truth.</span>
+                <span>Unofficial companion. The official Discover Canada guide is the source of truth.</span>
                 <a href={currentReading.sourceUrl} target="_blank" rel="noreferrer">
                   Official guide
                 </a>
@@ -415,7 +415,7 @@ export default function MapExplorerPage() {
               {readerTab === 'guide' && (
                 <>
                   <section className="study-section">
-                    <h2>Guide Summary</h2>
+                    <h2>Guide</h2>
                     <p>{currentReading.guideSummary}</p>
                   </section>
                 </>
@@ -424,12 +424,12 @@ export default function MapExplorerPage() {
               {readerTab === 'explain' && (
                 <>
                   <section className="study-section">
-                    <h2>Plain Explanation</h2>
+                    <h2>In Plain Words</h2>
                     <p>{currentReading.plainExplanation}</p>
                   </section>
                   {currentReading.confusionBuster && (
                     <section className="study-section">
-                      <h2>Common Confusion</h2>
+                      <h2>Don't Mix These Up</h2>
                       <p>{currentReading.confusionBuster}</p>
                     </section>
                   )}
