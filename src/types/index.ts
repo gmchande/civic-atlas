@@ -19,6 +19,34 @@ export interface HistoricalEvent {
   testFacts?: string[];
 }
 
+export type ReadingChapter =
+  | 'who-we-are'
+  | 'canadas-history'
+  | 'modern-canada'
+  | 'symbols'
+  | 'regions';
+
+export interface ReadingSection {
+  id: string;
+  title: string;
+  chapter: ReadingChapter;
+  sourceTitle: string;
+  sourceUrl: string;
+  sourceAnchor?: string;
+  sourceVersionDate?: string;
+  guideLocation: string;
+  year?: number;
+  endYear?: number;
+  mapYear: number;
+  eventIds: string[];
+  guideSummary: string;
+  plainExplanation: string;
+  mapFocus: string;
+  testMemory: string[];
+  terms: { term: string; meaning: string }[];
+  confusionBuster?: string;
+}
+
 export interface Province {
   code: string;
   name: string;

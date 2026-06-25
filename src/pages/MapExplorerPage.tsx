@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import CanadaMap from '../components/map/CanadaMap';
 import TimelineSlider from '../components/map/TimelineSlider';
 import { eras } from '../data/eras';
 import { eraGuides } from '../data/eraGuides';
 import { events } from '../data/events';
+import { readingSections } from '../data/readingSections';
 import { publicPath } from '../public-path';
 import './MapExplorerPage.css';
 
 const OFFICIAL_GUIDE_URL = 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html';
+const EMPTY_EVENT_IDS: string[] = [];
 
 // Per-province colors matching CanadaMap.tsx
 const PROVINCE_LEGEND: { color: string; label: string }[] = [
@@ -77,14 +79,19 @@ const CATEGORY_COLORS: Record<string, { color: string; label: string }> = {
 };
 
 export default function MapExplorerPage() {
+  const studyPanelRef = useRef<HTMLElement>(null);
   const [selectedYear, setSelectedYear] = useState(eras[0]?.year ?? 1867);
   const [showEvents, setShowEvents] = useState(true);
   const [showExternalContext, setShowExternalContext] = useState(true);
   const [legendTab, setLegendTab] = useState<'provinces' | 'events'>('provinces');
+  const [panelMode, setPanelMode] = useState<'reader' | 'explorer'>('reader');
+  const [readerTab, setReaderTab] = useState<'guide' | 'explain' | 'remember'>('explain');
+  const [activeReadingIndex, setActiveReadingIndex] = useState(0);
   const [mapKeyEntries, setMapKeyEntries] = useState<{ color: string; label: string }[]>([]);
   const [hasExternalContextForYear, setHasExternalContextForYear] = useState(false);
   const [hasIndigenousOverlayForYear, setHasIndigenousOverlayForYear] = useState(false);
 
+  const currentReading = readingSections[activeReadingIndex];
   const currentEra = eras.find((e) => e.year === selectedYear);
   const currentGuide = eraGuides[selectedYear];
   const currentEraIndex = eras.findIndex((e) => e.year === selectedYear);
@@ -97,6 +104,14 @@ export default function MapExplorerPage() {
 
     return matchingEvents.slice(-4);
   }, [previousEraYear, selectedYear]);
+  const readingEvents = useMemo(() => {
+    const activeIds = new Set(currentReading?.eventIds ?? []);
+    return events.filter((event) => activeIds.has(event.id));
+  }, [currentReading]);
+  const activeEventIds = useMemo(
+    () => (panelMode === 'reader' && currentReading ? currentReading.eventIds : EMPTY_EVENT_IDS),
+    [currentReading, panelMode]
+  );
   const eraYears = useMemo(() => eras.map((e) => e.year), []);
   const closestYear = useMemo(
     () => eraYears.reduce((prev, curr) => (curr <= selectedYear ? curr : prev), eraYears[0]),
@@ -170,6 +185,33 @@ export default function MapExplorerPage() {
 
   const showConfederationTransitionHint = selectedYear === 1867;
 
+  const selectReadingSection = useCallback((index: number) => {
+    const nextSection = readingSections[index];
+    if (!nextSection) return;
+    setActiveReadingIndex(index);
+    setSelectedYear(nextSection.mapYear);
+    setPanelMode('reader');
+    requestAnimationFrame(() => {
+      studyPanelRef.current?.scrollTo({ top: 0 });
+    });
+  }, []);
+
+  function handleTimelineYearChange(year: number) {
+    setSelectedYear(year);
+    setPanelMode('explorer');
+  }
+
+  const handleEventClick = useCallback((event: (typeof events)[number]) => {
+    if (panelMode !== 'reader') return;
+    const sectionIndex = readingSections.findIndex((section) => section.eventIds.includes(event.id));
+    if (sectionIndex >= 0) {
+      selectReadingSection(sectionIndex);
+    }
+  }, [panelMode, selectReadingSection]);
+
+  const previousReadingDisabled = activeReadingIndex === 0;
+  const nextReadingDisabled = activeReadingIndex === readingSections.length - 1;
+
   return (
     <div className="page-full map-explorer">
       <div className="explorer-content">
@@ -178,7 +220,9 @@ export default function MapExplorerPage() {
             <CanadaMap
               selectedYear={selectedYear}
               events={showEvents ? events : undefined}
+              activeEventIds={activeEventIds}
               showExternalContext={showExternalContext}
+              onEventClick={handleEventClick}
             />
 
             {/* Era info — key forces remount for slide-in animation */}
@@ -272,7 +316,7 @@ export default function MapExplorerPage() {
             <TimelineSlider
               eras={eras}
               selectedYear={selectedYear}
-              onYearChange={setSelectedYear}
+              onYearChange={handleTimelineYearChange}
             />
             {showConfederationTransitionHint && (
               <div className="timeline-transition-hint">
@@ -303,8 +347,151 @@ export default function MapExplorerPage() {
           </div>
         </section>
 
-        <aside className="study-panel" aria-label="Study companion">
-          {currentEra && currentGuide && (
+        <aside ref={studyPanelRef} className="study-panel" aria-label="Study companion">
+          <div className="study-mode-tabs" aria-label="Study panel mode">
+            <button
+              type="button"
+              className={`study-mode-tab ${panelMode === 'reader' ? 'active' : ''}`}
+              onClick={() => currentReading && selectReadingSection(activeReadingIndex)}
+            >
+              History Path
+            </button>
+            <button
+              type="button"
+              className={`study-mode-tab ${panelMode === 'explorer' ? 'active' : ''}`}
+              onClick={() => setPanelMode('explorer')}
+            >
+              Map Explorer
+            </button>
+          </div>
+
+          {panelMode === 'reader' && currentReading ? (
+            <>
+              <div className="study-kicker">History Path</div>
+              <h1 className="study-title">{currentReading.title}</h1>
+              <p className="study-question">{currentReading.guideLocation}</p>
+              <p className="study-summary">{currentReading.mapFocus}</p>
+
+              <div className="reader-progress">
+                <span>{activeReadingIndex + 1} of {readingSections.length}</span>
+                <span>{formatYearRange(currentReading.year, currentReading.endYear)}</span>
+              </div>
+
+              <div className="reader-section-list" aria-label="History path sections">
+                {readingSections.map((section, index) => (
+                  <button
+                    type="button"
+                    key={section.id}
+                    className={`reader-section-dot ${index === activeReadingIndex ? 'active' : ''}`}
+                    onClick={() => selectReadingSection(index)}
+                    aria-label={`Open ${section.title}`}
+                    title={section.title}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+
+              <div className="reader-tabs" aria-label="Reading modes">
+                {(['guide', 'explain', 'remember'] as const).map((tab) => (
+                  <button
+                    type="button"
+                    key={tab}
+                    className={`reader-tab ${readerTab === tab ? 'active' : ''}`}
+                    onClick={() => setReaderTab(tab)}
+                  >
+                    {tab[0].toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
+              </div>
+
+              <div className="reader-source-strip">
+                <span>Unofficial companion. Use the official guide as the source of truth.</span>
+                <a href={currentReading.sourceUrl} target="_blank" rel="noreferrer">
+                  Official guide
+                </a>
+              </div>
+
+              {readerTab === 'guide' && (
+                <>
+                  <section className="study-section">
+                    <h2>Guide Summary</h2>
+                    <p>{currentReading.guideSummary}</p>
+                  </section>
+                </>
+              )}
+
+              {readerTab === 'explain' && (
+                <>
+                  <section className="study-section">
+                    <h2>Plain Explanation</h2>
+                    <p>{currentReading.plainExplanation}</p>
+                  </section>
+                  {currentReading.confusionBuster && (
+                    <section className="study-section">
+                      <h2>Common Confusion</h2>
+                      <p>{currentReading.confusionBuster}</p>
+                    </section>
+                  )}
+                  {readingEvents.length > 0 && (
+                    <section className="study-section">
+                      <h2>Map Events</h2>
+                      <div className="study-events">
+                        {readingEvents.map((event) => (
+                          <article key={event.id} className="study-event">
+                            <div className="study-event-year">{event.year}</div>
+                            <div>
+                              <h3>{event.title}</h3>
+                              <p>{event.description}</p>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                  <section className="study-section">
+                    <h2>Terms</h2>
+                    <dl className="study-terms">
+                      {currentReading.terms.map((item) => (
+                        <div key={item.term} className="study-term">
+                          <dt>{item.term}</dt>
+                          <dd>{item.meaning}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </section>
+                </>
+              )}
+
+              {readerTab === 'remember' && (
+                <section className="study-section">
+                  <h2>Remember</h2>
+                  <ul>
+                    {currentReading.testMemory.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              <div className="reader-nav">
+                <button
+                  type="button"
+                  onClick={() => selectReadingSection(activeReadingIndex - 1)}
+                  disabled={previousReadingDisabled}
+                >
+                  Previous
+                </button>
+                <button
+                  type="button"
+                  onClick={() => selectReadingSection(activeReadingIndex + 1)}
+                  disabled={nextReadingDisabled}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          ) : currentEra && currentGuide && (
             <>
               <div className="study-kicker">Civic Atlas</div>
               <h1 className="study-title">{currentEra.year}: {currentEra.label}</h1>
@@ -372,6 +559,12 @@ export default function MapExplorerPage() {
       </div>
     </div>
   );
+}
+
+function formatYearRange(year?: number, endYear?: number): string {
+  if (!year) return 'Guide context';
+  if (!endYear || endYear === year) return String(year);
+  return `${year}-${endYear}`;
 }
 
 function normalizeProvinceLabel(name: string): string {

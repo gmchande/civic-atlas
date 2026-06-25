@@ -78,6 +78,7 @@ interface CanadaMapProps {
   selectedYear: number;
   showExternalContext?: boolean;
   events?: HistoricalEvent[];
+  activeEventIds?: string[];
   onProvinceClick?: (provinceName: string, year: number) => void;
   onEventClick?: (event: HistoricalEvent) => void;
 }
@@ -86,6 +87,7 @@ export default function CanadaMap({
   selectedYear,
   showExternalContext = true,
   events,
+  activeEventIds = [],
   onProvinceClick,
   onEventClick,
 }: CanadaMapProps) {
@@ -446,13 +448,16 @@ export default function CanadaMap({
     const previousEraYear = eraIndex > 0 ? eraYears[eraIndex - 1] : Number.NEGATIVE_INFINITY;
     const sliceStart = previousEraYear + 1;
     const sliceEnd = selectedYear;
+    const activeEventIdSet = new Set(activeEventIds);
 
-    // Era-slice mode: show events relevant to the selected timeline step only.
+    // Era-slice mode plus reader highlights: keep active reading events visible.
     const filteredEvents = events.filter((e) => {
       const eventStart = e.year;
       const eventEnd = e.endYear ?? e.year;
-      return eventStart <= sliceEnd && eventEnd >= sliceStart;
+      const inEraSlice = eventStart <= sliceEnd && eventEnd >= sliceStart;
+      return inEraSlice || activeEventIdSet.has(e.id);
     });
+    const hasActiveEvents = activeEventIdSet.size > 0;
 
     const geojsonData: GeoJSON.FeatureCollection = {
       type: 'FeatureCollection',
@@ -469,6 +474,7 @@ export default function CanadaMap({
           category: e.category,
           description: e.description,
           keyPeople: e.keyPeople?.join(', ') || '',
+          active: activeEventIdSet.has(e.id) ? 1 : 0,
         },
       })),
     };
@@ -482,12 +488,20 @@ export default function CanadaMap({
       id: layerId,
       type: 'circle',
       source: sourceId,
+      layout: {
+        'circle-sort-key': ['get', 'active'],
+      },
       paint: {
         'circle-radius': [
-          'interpolate', ['linear'], ['zoom'],
-          3, 5,
-          6, 8,
-          10, 12,
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          3,
+          ['case', ['==', ['get', 'active'], 1], 7, 5],
+          6,
+          ['case', ['==', ['get', 'active'], 1], 11, 8],
+          10,
+          ['case', ['==', ['get', 'active'], 1], 15, 12],
         ],
         'circle-color': [
           'match',
@@ -500,10 +514,30 @@ export default function CanadaMap({
           'settlement', '#c2410c',
           '#6b7280',
         ],
-        'circle-stroke-width': 2.5,
-        'circle-stroke-color': '#ffffff',
-        'circle-opacity': 0.92,
-        'circle-stroke-opacity': 0.9,
+        'circle-stroke-width': [
+          'case',
+          ['==', ['get', 'active'], 1],
+          4,
+          2.5,
+        ],
+        'circle-stroke-color': [
+          'case',
+          ['==', ['get', 'active'], 1],
+          '#111827',
+          '#ffffff',
+        ],
+        'circle-opacity': [
+          'case',
+          ['==', ['get', 'active'], 1],
+          1,
+          hasActiveEvents ? 0.38 : 0.92,
+        ],
+        'circle-stroke-opacity': [
+          'case',
+          ['==', ['get', 'active'], 1],
+          1,
+          hasActiveEvents ? 0.55 : 0.9,
+        ],
       },
     });
 
@@ -558,7 +592,7 @@ export default function CanadaMap({
       m.off('mouseenter', layerId, eventMouseEnterHandler);
       m.off('mouseleave', layerId, eventMouseLeaveHandler);
     };
-  }, [selectedYear, mapLoaded, events, onEventClick]);
+  }, [selectedYear, mapLoaded, events, activeEventIds, onEventClick]);
 
   return (
     <div className="canada-map-container">
