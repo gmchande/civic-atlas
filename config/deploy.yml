@@ -9,7 +9,7 @@ servers:
     - 159.203.15.246
 
 ssh:
-  user: root
+  user: deploy
   config: true
 
 proxy:
